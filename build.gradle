@@ -1,0 +1,16 @@
+group 'fintech'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.apache.poi', name: 'poi', version: '4.0.1'
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+}
