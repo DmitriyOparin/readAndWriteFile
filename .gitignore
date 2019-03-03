@@ -1,7 +1,8 @@
 .idea/
 .gradle
 /build/
-
+*.pdf
+*.xls
 # Ignore Gradle GUI config
 gradle-app.setting
 
