@@ -1,6 +1,5 @@
 package ru.fintech.homework;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -83,7 +82,7 @@ public class Person {
     }
 
     public void setDateBirthInternet(long unixTime) {
-        Date date = new Date(unixTime*1000);
+        Date date = new Date(unixTime * 1000);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String result = format.format(date);
         this.dateBirth = result;

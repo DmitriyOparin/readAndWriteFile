@@ -18,7 +18,7 @@ public class FileExcel {
         this.path = pathFileExcel;
     }
 
-    public void writeExcel(List<Person> dataPeoples) throws IOException {
+    public void writeExcel(List<Person> dataPeoples) {
         HSSFWorkbook workbook = new HSSFWorkbook();
 
         Sheet newSheet = workbook.createSheet("Данные людей");
@@ -51,10 +51,20 @@ public class FileExcel {
             row.createCell(13).setCellValue(dataPeoples.get(i).getApartment());
             rownum++;
         }
-        FileOutputStream fileout = new FileOutputStream(this.path);
-        workbook.write(fileout);
-        fileout.close();
-        String fullpath = new File(this.path).getCanonicalPath();
-        System.out.println("Файл создан. Путь: " + fullpath);
+        FileOutputStream fileout = null;
+        try {
+            fileout = new FileOutputStream(this.path);
+            workbook.write(fileout);
+            String fullpath = new File(this.path).getCanonicalPath();
+            System.out.println("Файл создан. Путь: " + fullpath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileout.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +22,7 @@ public class FilePdf {
         this.path = path;
     }
 
-    public void writePdf(List<Person> dataPeoples) throws IOException, DocumentException {
+    public void writePdf(List<Person> dataPeoples) throws FileNotFoundException {
         String commonPath = "src" + separator + "main" + separator + "resources" + separator;
         String pathFileTtf = commonPath + "arial.ttf";
 
@@ -30,12 +31,17 @@ public class FilePdf {
                 "Город", "Улица", "Дом", "Квартира"};
 
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
-        document.open();
 
+        Font font = null;
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            BaseFont bf = BaseFont.createFont(pathFileTtf, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            font = new Font(bf);
+            document.open();
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
 
-        BaseFont bf = BaseFont.createFont(pathFileTtf, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font font = new Font(bf);
 
         PdfPTable table = new PdfPTable(namesColumnExcel.length);
 
@@ -61,9 +67,14 @@ public class FilePdf {
             table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeoples.get(i).getApartment()), font)));
         }
 
-        document.add(table);
-        document.close();
-        String fullpath = new File(this.path).getCanonicalPath();
-        System.out.println("Файл создан. Путь: " + fullpath);
+        try {
+            document.add(table);
+            String fullpath = new File(this.path).getCanonicalPath();
+            System.out.println("Файл создан. Путь: " + fullpath);
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            document.close();
+        }
     }
 }

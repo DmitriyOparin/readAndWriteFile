@@ -2,7 +2,6 @@ package ru.fintech.homework;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itextpdf.text.DocumentException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,15 +18,13 @@ public class Main {
 
     static String separator = File.separator;
     private static String consonantsRussian = "йцкнгшщзхфвпрлджбтмсч";
-    private static String url = "http://randomuser.ru/api.json";
+    private static String url = "http://random23user.ru/api.json";
     private static Random random = new Random();
     private static List<List<String>> allDataFile = new ArrayList<>();
     private static int generationCountPeople = 30;
-    private static String surnamePeople;
-    private static int sexFemale;
 
 
-    public static void main(String[] args) throws IOException, DocumentException {
+    public static void main(String[] args) throws IOException {
         String commonPath = "src" + separator + "main" + separator + "resources" + separator;
         String[] namesFileTxt = {"country.txt", "region.txt", "city.txt", "street.txt", "surname.txt",
                 "female_name.txt", "female_patronymic.txt", "male_name.txt", "male_patronymic.txt"};
@@ -67,11 +64,12 @@ public class Main {
             }
             strJSON = result.toString();
 
-        } catch (UnknownHostException ex){
-            System.out.println("Отсутствует сеть");
+        } catch (UnknownHostException ex) {
+
         }
 
-        if (responseCode == 200) {
+
+        if (responseCode == 200 && strJSON != null) {
             generationDataPeopleOfInternet(strJSON, objectList);
         } else {
             generationDataPeopleOfFile(objectList);
@@ -86,6 +84,8 @@ public class Main {
     }
 
     private static void generationDataPeopleOfFile(List<Person> dataPeoples) {
+        String surnamePeople;
+        int sexFemale;
         for (int i = 0; i < dataPeoples.size(); i++) {
             surnamePeople = allDataFile.get(4).get(random.nextInt(allDataFile.get(4).size()));
             sexFemale = consonantsRussian.indexOf(surnamePeople.charAt(surnamePeople.length() - 1));
@@ -159,5 +159,3 @@ public class Main {
         return tempList;
     }
 }
-
-
