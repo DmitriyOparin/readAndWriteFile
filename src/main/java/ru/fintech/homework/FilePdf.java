@@ -7,23 +7,21 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import static ru.fintech.homework.Main.separator;
 
 public class FilePdf {
+    private String separator = File.separator;
+    private String commonPath = "src" + separator + "main" + separator + "resources" + separator;
     private String path;
 
-
-    public FilePdf(String path) {
-        this.path = path;
+    FilePdf() {
+        this.path = commonPath + "data_people.pdf";
     }
 
-    public void writePdf(List<Person> dataPeoples) throws FileNotFoundException {
-        String commonPath = "src" + separator + "main" + separator + "resources" + separator;
+    public void writePdf(List<Person> dataPeoples) {
         String pathFileTtf = commonPath + "arial.ttf";
 
         String[] namesColumnExcel = {"Имя", "Фамилия", "Отчество", "Возраст", "Пол",
@@ -34,7 +32,7 @@ public class FilePdf {
 
         Font font = null;
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            PdfWriter.getInstance(document, new FileOutputStream(path));
             BaseFont bf = BaseFont.createFont(pathFileTtf, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             font = new Font(bf);
             document.open();
@@ -45,26 +43,26 @@ public class FilePdf {
 
         PdfPTable table = new PdfPTable(namesColumnExcel.length);
 
-        for (int i = 0; i < namesColumnExcel.length; i++) {
-            PdfPCell cell = new PdfPCell(new Paragraph(namesColumnExcel[i], font));
+        for (String aNamesColumnExcel : namesColumnExcel) {
+            PdfPCell cell = new PdfPCell(new Paragraph(aNamesColumnExcel, font));
             table.addCell(cell);
         }
 
-        for (int i = 0; i < dataPeoples.size(); i++) {
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getName(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getSurname(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getPatronymic(), font)));
-            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeoples.get(i).getAge()), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getSex(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getDateBirth(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getInn(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getIndex(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getCountry(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getRegion(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getCity(), font)));
-            table.addCell(new PdfPCell(new Paragraph(dataPeoples.get(i).getStreet(), font)));
-            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeoples.get(i).getHouse()), font)));
-            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeoples.get(i).getApartment()), font)));
+        for (Person dataPeople : dataPeoples) {
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getName(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getSurname(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getPatronymic(), font)));
+            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeople.getAge()), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getSex(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getDateBirth(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getInn(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getIndex(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getCountry(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getRegion(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getCity(), font)));
+            table.addCell(new PdfPCell(new Paragraph(dataPeople.getStreet(), font)));
+            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeople.getHouse()), font)));
+            table.addCell(new PdfPCell(new Paragraph(String.valueOf(dataPeople.getApartment()), font)));
         }
 
         try {

@@ -13,9 +13,10 @@ import java.util.List;
 public class FileExcel {
     private String path;
 
-
-    public FileExcel(String pathFileExcel) {
-        this.path = pathFileExcel;
+    FileExcel() {
+        String separator = File.separator;
+        String commonPath = "src" + separator + "main" + separator + "resources" + separator;
+        this.path = commonPath + "data_people.xls";
     }
 
     public void writeExcel(List<Person> dataPeoples) {
@@ -33,22 +34,22 @@ public class FileExcel {
         }
 
         rownum = 1;
-        for (int i = 0; i < dataPeoples.size(); i++) {
+        for (Person dataPeople : dataPeoples) {
             row = newSheet.createRow(rownum);
-            row.createCell(0).setCellValue(dataPeoples.get(i).getName());
-            row.createCell(1).setCellValue(dataPeoples.get(i).getSurname());
-            row.createCell(2).setCellValue(dataPeoples.get(i).getPatronymic());
-            row.createCell(3).setCellValue(dataPeoples.get(i).getAge());
-            row.createCell(4).setCellValue(dataPeoples.get(i).getSex());
-            row.createCell(5).setCellValue(dataPeoples.get(i).getDateBirth());
-            row.createCell(6).setCellValue(dataPeoples.get(i).getInn());
-            row.createCell(7).setCellValue(dataPeoples.get(i).getIndex());
-            row.createCell(8).setCellValue(dataPeoples.get(i).getCountry());
-            row.createCell(9).setCellValue(dataPeoples.get(i).getRegion());
-            row.createCell(10).setCellValue(dataPeoples.get(i).getCity());
-            row.createCell(11).setCellValue(dataPeoples.get(i).getStreet());
-            row.createCell(12).setCellValue(dataPeoples.get(i).getHouse());
-            row.createCell(13).setCellValue(dataPeoples.get(i).getApartment());
+            row.createCell(0).setCellValue(dataPeople.getName());
+            row.createCell(1).setCellValue(dataPeople.getSurname());
+            row.createCell(2).setCellValue(dataPeople.getPatronymic());
+            row.createCell(3).setCellValue(dataPeople.getAge());
+            row.createCell(4).setCellValue(dataPeople.getSex());
+            row.createCell(5).setCellValue(dataPeople.getDateBirth());
+            row.createCell(6).setCellValue(dataPeople.getInn());
+            row.createCell(7).setCellValue(dataPeople.getIndex());
+            row.createCell(8).setCellValue(dataPeople.getCountry());
+            row.createCell(9).setCellValue(dataPeople.getRegion());
+            row.createCell(10).setCellValue(dataPeople.getCity());
+            row.createCell(11).setCellValue(dataPeople.getStreet());
+            row.createCell(12).setCellValue(dataPeople.getHouse());
+            row.createCell(13).setCellValue(dataPeople.getApartment());
             rownum++;
         }
         FileOutputStream fileout = null;

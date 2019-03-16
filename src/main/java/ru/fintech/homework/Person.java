@@ -73,19 +73,19 @@ public class Person {
         return dateBirth;
     }
 
-    public void setDateBirthRandom() {
+    public void setDateBirth(long unixTime) {
+        Date date = new Date(unixTime * 1000);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String result = format.format(date);
+        this.dateBirth = result;
+    }
+
+    public void setDateBirth() {
         LocalDate localDate;
         localDate = LocalDate.now().minus(Period.ofDays((new Random().nextInt(365 * 70))));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedString = localDate.format(formatter);
         this.dateBirth = formattedString;
-    }
-
-    public void setDateBirthInternet(long unixTime) {
-        Date date = new Date(unixTime * 1000);
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        String result = format.format(date);
-        this.dateBirth = result;
     }
 
     public String getInn() {
