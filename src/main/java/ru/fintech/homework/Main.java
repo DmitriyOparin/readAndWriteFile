@@ -19,7 +19,6 @@ public class Main {
     private static Random random = new Random();
     private static int generationCountPeople = 30;
 
-
     public static void main(String[] args) {
         int maxCountPeople = random.nextInt(generationCountPeople) + 1;
         String urlMaxCountPeople = url + "?results=" + maxCountPeople;
@@ -52,10 +51,19 @@ public class Main {
             e.printStackTrace();
         }
 
+        boolean flagEmptyDB;
+        Database db = new Database();
+        db.createDB();
+        db.createTables();
+        flagEmptyDB = db.controlEmptyTables();
+
         if (responseCode == 200 && strJSON != null) {
             GenerationDataPersonInInternet genDataPerson = new GenerationDataPersonInInternet();
             genDataPerson.readFile();
             genDataPerson.generation(strJSON, objectList);
+            db.addOrUpdateDataPersonInDB(objectList);
+        } else if (!flagEmptyDB) {
+            objectList = db.getDataPersonInDB();
         } else {
             GenerationDataPersonInFile genDataPerson = new GenerationDataPersonInFile();
             genDataPerson.readFile();

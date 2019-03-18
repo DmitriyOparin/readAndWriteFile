@@ -87,7 +87,9 @@ public class Person {
         String formattedString = localDate.format(formatter);
         this.dateBirth = formattedString;
     }
-
+    public void setDateBirth(String date) {
+        this.dateBirth = date;
+    }
     public String getInn() {
         return inn;
     }
@@ -141,6 +143,10 @@ public class Person {
             result.append(indexGenerator[i]);
         }
         this.index = result.toString();
+    }
+
+    public void setIndex(String postcode){
+        this.index = postcode;
     }
 
     public String getCountry() {

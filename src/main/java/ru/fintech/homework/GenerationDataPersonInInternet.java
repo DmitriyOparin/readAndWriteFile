@@ -59,7 +59,7 @@ public class GenerationDataPersonInInternet {
             dataPeoples.get(i).setStreet(street);
             int house = root.at("/" + i + "/user/location/building").asInt();
             dataPeoples.get(i).setHouse(house);
-            dataPeoples.get(i).setApartment(random.nextInt(300));
+            dataPeoples.get(i).setApartment(random.nextInt(300) + 1);
         }
     }
 }

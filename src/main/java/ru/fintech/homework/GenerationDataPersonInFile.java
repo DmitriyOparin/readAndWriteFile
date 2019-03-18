@@ -47,8 +47,8 @@ public class GenerationDataPersonInFile {
             dataPeople.setRegion(allDataFile.get(1).get(random.nextInt(allDataFile.get(1).size())));
             dataPeople.setCity(allDataFile.get(2).get(random.nextInt(allDataFile.get(2).size())));
             dataPeople.setStreet(allDataFile.get(3).get(random.nextInt(allDataFile.get(3).size())));
-            dataPeople.setHouse(random.nextInt(300));
-            dataPeople.setApartment(random.nextInt(300));
+            dataPeople.setHouse(random.nextInt(300) + 1);
+            dataPeople.setApartment(random.nextInt(300) + 1);
         }
     }
 }
