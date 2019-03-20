@@ -11,10 +11,10 @@ import java.util.List;
 
 public class Database {
     private String separator = File.separator;
-    private String[] namesFileTxt = {"loginDB.txt", "passDB.txt", "nameBD.txt"};
+    private String[] namesFileTxt = {"loginDB.txt", "passDB.txt", "nameDB.txt"};
     private String login;
     private String password;
-    private String nameBD;
+    private String nameDB;
     private List<List<String>> allDataFile = new ArrayList<>();
     private String url = "jdbc:mysql://localhost:3306";
     private String serverTimezone = "?useUnicode=true&serverTimezone=UTC";
@@ -33,8 +33,8 @@ public class Database {
         }
         this.login = allDataFile.get(0).get(0);
         this.password = allDataFile.get(1).get(0);
-        this.nameBD = allDataFile.get(2).get(0);
-        this.urlDB = url + "/" + nameBD + serverTimezone;
+        this.nameDB = allDataFile.get(2).get(0);
+        this.urlDB = url + "/" + nameDB + serverTimezone;
     }
 
     public void createDB() {
@@ -43,7 +43,7 @@ public class Database {
         try {
             connServer = DriverManager.getConnection(url + serverTimezone, login, password);
             stat = connServer.createStatement();
-            String query = "CREATE DATABASE " + nameBD;
+            String query = "CREATE DATABASE " + nameDB;
             stat.executeUpdate(query);
             System.out.println("База данных успешно создана");
         } catch (SQLException e) {
